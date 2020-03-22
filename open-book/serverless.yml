@@ -60,6 +60,10 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: post
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -101,13 +105,54 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+resources:
+ Resources:
+   PagesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: open-book-pages
+        # Set the CORS policy
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+ Outputs:
+    PagesBucket:
+      Description: "Description for the output"
+      Value: 
+        Ref: PagesBucket
+# resources:
+#   Resources:
+#     PagesBucket:
+#       Type: AWS::S3:Bucket
+#       Properties:
+#         BucketName: open-book-pages
+#         # Set the CORS policy
+#         # CorsConfiguration:
+#         #   CorsRules:
+#         #     -
+#         #       AllowedOrigins:
+#         #         - '*'
+#         #       AllowedHeaders:
+#         #         - '*'
+#         #       AllowedMethods:
+#         #         - GET
+#         #         - PUT
+#         #         - POST
+#         #         - DELETE
+#         #         - HEAD
+#         #       MaxAge: 3000
+#   Outputs:
+#     PagesBucket:
+#       Value:
+#         Ref: PagesBucket
