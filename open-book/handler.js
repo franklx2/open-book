@@ -6,10 +6,23 @@ var errors = [];
 var data = "";
 var text = "";
 var s3_status = "";
-var s3KeyName = "";
+var keyName = makeId(ID_LENGTH)
+var bucketName = process.env.bucketName;
+var content = text;
+var contentType = 'STRING_VALUE';
+var acl = "public-read";
+var params = { 
+  Bucket: bucketName, 
+  Key: keyName, 
+  Body: content, 
+  ContentType: contentType, 
+  ACL: acl
+};
 
 /*
- * @TODO: For whatever reason I am not able to get the key name back on the response. But at least the file is being uploaded now. Thank God.
+ * @TODO: The function is now able to return the keyName of the file that is created. We can use this to pass into another 
+ * API call that will extract data from the file with the given keyName and pump it into a DynamoDB table. The next step is 
+ * to refactor this function so it's not called "hello" :)
  */
 
 module.exports.hello = (event, context, callback) => {
@@ -23,7 +36,7 @@ module.exports.hello = (event, context, callback) => {
         input: event.body,
         errors: errors,
         s3_status: s3_status,
-        s3KeyName: s3KeyName
+        s3KeyName: keyName
       },
       null,
       2
@@ -44,18 +57,6 @@ function init(event) {
 }
 
 function uploadToS3(text) {
-  var bucketName = process.env.bucketName;
-  var keyName = makeId(ID_LENGTH)
-  var content = text;
-  var contentType = 'STRING_VALUE';
-  var acl = "public-read";
-  var params = { 
-    Bucket: bucketName, 
-    Key: keyName, 
-    Body: content, 
-    ContentType: contentType, 
-    ACL: acl
-  };
   console.log("Upload to S3 in progress");
   console.log(params);
   s3.putObject(params, function (err, data) {
