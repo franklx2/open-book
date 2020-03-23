@@ -3,36 +3,85 @@ app: open-book
 org: franklx2
 
 custom:
-  bucket: open-book-pages
+  bucketOB: open-book-pages
+  bucketSPA: open-book-spa
+  s3Sync:
+    - bucketName: ${self:custom.bucketSPA}
+      localDir: spa
+  filesToUpload:
+    - fileName: INITPAGE
+      localPath: ob-init/INITPAGE
+      s3Bucket: ${self:custom.bucketOB}
 
 provider:
   name: aws
   runtime: nodejs12.x
-  timeout: 30
+  timeout: 29
   iamRoleStatements:
     - Effect: Allow
       Action:
         - "s3:*"
-      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+      Resource: "arn:aws:s3:::${self:custom.bucketOB}/*"
+    - Effect: Allow
+      Action:
+        - "s3:*"
+      Resource: "arn:aws:s3:::${self:custom.bucketSPA}/*"
 
 #  stage: dev
 #  region: us-east-1
 
 functions:
-  hello:
-    handler: handler.hello
+  create:
+    handler: handler.create
     environment:
-      bucketName: ${self:custom.bucket}
+      bucketName: ${self:custom.bucketOB}
     events:
       - http:
-          path: hello
+          path: create
+          method: post
+  update:
+    handler: handler.update
+    environment:
+      bucketName: ${self:custom.bucketOB}
+    events:
+      - http:
+          path: update
           method: post
 resources:
  Resources:
-   PagesBucket:
+    SPABucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.bucket}
+        BucketName: ${self:custom.bucketSPA}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+    SPABucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: SPABucket
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: "*"
+              Action:
+              - s3:GetObject
+              Resource:
+                Fn::Join: [
+                  "", [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "SPABucket"
+                    },
+                    "/*"
+                  ]
+                ]
+    PagesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketOB}
         # Set the CORS policy
         CorsConfiguration:
           CorsRules:
@@ -48,8 +97,11 @@ resources:
                 - DELETE
                 - HEAD
               MaxAge: 3000
- Outputs:
-    PagesBucket:
-      Description: "Description for the output"
-      Value: 
-        Ref: PagesBucket
+Outputs:
+  PagesBucket:
+    Description: "Description for the output"
+    Value: 
+      Ref: PagesBucket
+plugins:
+  - serverless-s3-sync
+  - serverless-plugin-upload-s3

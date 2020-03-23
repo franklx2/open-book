@@ -1,0 +1,15 @@
+{
+  "name": "open-book",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "dependencies": {
+    "aws-sdk": "^2.643.0",
+    "serverless-s3-sync": "^1.12.0"
+  },
+  "scripts": {
+    "sls": "sls deploy"
+  },
+  "author": "",
+  "license": "ISC"
+}
