@@ -5,6 +5,7 @@ org: franklx2
 custom:
   bucketOB: open-book-pages
   bucketSPA: open-book-spa
+  dynamoDB: open-book-pages-ddb
   s3Sync:
     - bucketName: ${self:custom.bucketSPA}
       localDir: spa
@@ -97,6 +98,39 @@ resources:
                 - DELETE
                 - HEAD
               MaxAge: 3000
+    OBPagesTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.dynamoDB}
+        AttributeDefinitions:
+          - AttributeName: PAGE_NUM
+            AttributeType: N
+          - AttributeName: TEXT
+            AttributeType: S
+          - AttributeName: ID
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PAGE_NUM
+            KeyType: HASH
+          - AttributeName: TEXT
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: '5'
+          WriteCapacityUnits: '5'
+        GlobalSecondaryIndexes:
+        - IndexName: OBGSI
+          KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+          - AttributeName: PAGE_NUM
+            KeyType: RANGE
+          Projection:
+            NonKeyAttributes:
+            - TEXT
+            ProjectionType: INCLUDE
+          ProvisionedThroughput:
+            ReadCapacityUnits: '5'
+            WriteCapacityUnits: '5'
 Outputs:
   PagesBucket:
     Description: "Description for the output"

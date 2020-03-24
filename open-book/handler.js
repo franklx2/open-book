@@ -16,6 +16,13 @@ var acl = "public-read";
 /*
  * @TODO: As of now I still need to complete the following:
  * 0. Create a DynamoDB table that will do what you want... just an Int increment column, and a Text column
+ *    -03/24/2020 I was able to create a new DynamoDB table with a GSI attached that will allow the user to persist page data.
+ *                The GSI is needed for a way to sort the page numbers. Since sorting is implemented via "range" keys, I needed a
+ *                Hash key that will return all rows of the table. I chose to use "ID" and all rows have an ID of 1 at the moment.
+ *                The "ID" attribute can be thought of as the ID of a book, meaning that these rows all belong to one logical book.
+ *                So the GSI has the "ID" as the hash and "PAGE_NUM" as the range key. The code will be able to sort the query for 
+ *                "ID" == 1 on descending, returning me the LAST page number. I will use that returned value to compute what the new 
+ *                page numbers will be when persisting page data from S3. 
  * 1. /publish function that will read a file from S3 and write the data to DynamoDB
  * 2. Create a plugin that uploads a file to S3, pulls data with Lambda and writes to DynamoDB
  *    - This will be a QA plugin that satisfies the plugin requirement of the exercise
