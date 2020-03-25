@@ -17,16 +17,23 @@ custom:
 provider:
   name: aws
   runtime: nodejs12.x
-  timeout: 29
+  timeout: 28
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - "s3:*"
+        - "s3:PutObject"
+        - "s3:GetObject"
       Resource: "arn:aws:s3:::${self:custom.bucketOB}/*"
     - Effect: Allow
       Action:
-        - "s3:*"
+        - "s3:PutObject"
+        - "s3:GetObject"
       Resource: "arn:aws:s3:::${self:custom.bucketSPA}/*"
+    - Effect: Allow
+      Action: 
+        - dynamodb:Query
+        - dynamodb:PutItem
+      Resource: 'arn:aws:dynamodb:us-east-1:*:*'
 
 #  stage: dev
 #  region: us-east-1
@@ -47,6 +54,23 @@ functions:
     events:
       - http:
           path: update
+          method: post
+  publish:
+    handler: handler.publish
+    environment:
+      dynamoDB: ${self:custom.dynamoDB}
+      bucketName: ${self:custom.bucketOB}
+    events:
+      - http:
+          path: publish
+          method: post
+  get:
+    handler: handler.get
+    environment:
+      dynamoDB: ${self:custom.dynamoDB}
+    events:
+      - http:
+          path: get
           method: post
 resources:
  Resources:

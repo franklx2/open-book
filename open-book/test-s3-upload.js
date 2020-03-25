@@ -5,7 +5,12 @@ var bucketName = "open-book-pages";
 var keyName = makeId(10);
 var content = 'This is a sample text file';
 
-var params = { Bucket: bucketName, Key: keyName, Body: content };
+var params = { 
+    Bucket: bucketName, 
+    Key: keyName, 
+    Body: content 
+};
+
 console.log("Params: " + params);
 
 s3.putObject(params, function (err, data) {
