@@ -2,6 +2,11 @@
 Welcome to Open Book, a simple web application with a serverless backend that allows users to contribute anonymously to an open book.
 Users will be able to create new pages and see it appended to the end of the book.
 
+INSTRUCTIONS:
+1. Clone the project into your local directory
+2. Run `npm install` to setup your environment with the appropriate node packages
+3. Run `sls deploy` to deploy the build
+
 This application consists of a simple frontend HTML/JS/CSS that makes requests to the API backend, hosted on a variety of serverless AWS components.
 
 1. On application initial deploy, a user contributed plugin copies an init file into an AWS S3 bucket. This file contains the very first page to the Open Book, which is simple a brief message introducing the user to the intent behind Open Book:
