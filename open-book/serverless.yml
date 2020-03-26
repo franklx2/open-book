@@ -163,3 +163,4 @@ Outputs:
 plugins:
   - serverless-s3-sync
   - serverless-plugin-upload-s3
+  - open-book-init-plugin
