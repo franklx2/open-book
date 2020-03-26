@@ -12,7 +12,7 @@ var params = {
     "KeyConditionExpression": "#ID = :ID",
     "ExpressionAttributeNames": {"#ID": "ID"},
     "ExpressionAttributeValues": {":ID":  "1"},
-    "ScanIndexForward": "false"
+    "Select":"COUNT"
 };
 
 docClient.query(params, function (err, data) {
@@ -23,6 +23,7 @@ docClient.query(params, function (err, data) {
         // data.Items.forEach(function(item) {
         //     console.log(" -", item.PAGE_NUM + ": " + item.TEXT);
         // });
-        console.log("Items[0].PAGE_NUM: " + data.Items[0].PAGE_NUM);
+        // console.log("Items[0].PAGE_NUM: " + data.Items[0].PAGE_NUM);
+        console.log("data: " + data.Count);
     }
 });

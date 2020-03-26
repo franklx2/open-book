@@ -35,9 +35,6 @@ provider:
         - dynamodb:PutItem
       Resource: 'arn:aws:dynamodb:us-east-1:*:*'
 
-#  stage: dev
-#  region: us-east-1
-
 functions:
   create:
     handler: handler.create

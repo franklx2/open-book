@@ -9,7 +9,8 @@
     "serverless-plugin-upload-s3": "^1.0.1"
   },
   "scripts": {
-    "sls": "sls deploy"
+    "sls": "sls deploy && ./ob-init-env.sh && node ./apigw-hostname-s3-upload.js",
+    "test": "./ob-init-env.sh && node ./apigw-hostname-s3-upload.js"
   },
   "author": "",
   "license": "ISC"

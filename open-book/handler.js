@@ -19,7 +19,7 @@ var getPagesDataPromise;
 var s3 = new AWS.S3();
 var dynamodb = new AWS.DynamoDB();
 var docClient = new AWS.DynamoDB.DocumentClient();
-
+var apiGWURL = process.env.GW_URL;
 
 /*
  * @TODO: As of now I still need to complete the following:
@@ -65,7 +65,15 @@ var docClient = new AWS.DynamoDB.DocumentClient();
  *                         After that I can work on the frontend. I have tomorrow night (Wednesday), hopefully will get the barebones working of the frontend.
  * 1. /publish function that will read a file from S3 and write the data to DynamoDB
  * 2. Create a plugin that pulls data with Lambda and writes to DynamoDB
- *    - This will be a QA plugin that satisfies the plugin requirement of the exercise
+ *    -This will be a QA plugin that satisfies the plugin requirement of the exercise
+ *    -03/26/2020 02:08 AM Turned out that this was not a QA plugin at all. It is going to be an initializer plugin. The trick is though, I need to make it
+ *                         conditional -- conditional in the sense that it needs to be able to detect if the open book ddb table is empty. If it is empty,
+ *                         then it knows for sure that it is the initial deployment of the app, and it will go ahead and run the plugin to load init file.
+ *    -03/26/2020 03:19 AM I finished the plugin ... I am presented with the problem of, how will I get the API endpoint over to the frontend app? I need to
+ *                         support that functionality during 'sls deploy's... So I will have to construct the URL and then load it into an env file on S3.
+ *    -03/26/2020 04:16 AM Wow, that was incredibly painful. I was able to create a script that generates the API endpoint URL and upload it to the S3 bucket
+ *                         the frontend app will use. I hope I can just go ahead and load the file from the app to get the URL for its API calls. I am pretty
+ *                         sure it will work ... 
  * 3. Create The frontend page that displays the Open Book and also allows users to submit forms for editing/publishing
  */
 
