@@ -4,8 +4,9 @@ Users will be able to create new pages and see it appended to the end of the boo
 
 INSTRUCTIONS:
 1. Clone the project into your local directory
+2. Run `cd open-book`
 2. Run `npm install` to setup your environment with the appropriate node packages
-3. Run `sls deploy` to deploy the build
+3. Run `npm run sls` to initiate the deploy script
 
 This application consists of a simple frontend HTML/JS/CSS that makes requests to the API backend, hosted on a variety of serverless AWS components.
 
