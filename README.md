@@ -13,8 +13,7 @@ INSTRUCTIONS:
 
 This application consists of a simple frontend HTML/JS/CSS that makes requests to the API backend, hosted on a variety of serverless AWS components.
 
-1. On application initial deploy, a user contributed plugin copies an init file into an AWS S3 bucket. This file contains the very first page to the Open Book, which is simple a brief message introducing the user to the intent behind Open Book:
-Welcome to Open Book. An open source, open to the internet book available for anyone to contribute. Please be considerate of others when writing.
+1. On application initial deploy, a user contributed plugin copies an init file into an AWS S3 bucket. This file contains the very first page to the Open Book, which is simple a brief message introducing the user to the intent behind Open Book.
 2. Another plugin syncs the frontend app directory into an S3 bucket configured via serverless.yml for static web hosting. 
 3. My plugin checks to see if this is the very first deployment of the app, if it is, then it will extract the text of the init file from S3 and write it into DynamoDB. 
 4. The API endpoints/Lambda functions are deployed
