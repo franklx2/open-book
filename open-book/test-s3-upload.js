@@ -12,7 +12,6 @@ var params = {
 };
 
 console.log("Params: " + params);
-console.log("api url: " + process.env.API_URL);
 
 s3.putObject(params, function (err, data) {
     if (err)

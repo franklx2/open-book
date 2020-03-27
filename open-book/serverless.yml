@@ -3,8 +3,8 @@ app: open-book
 org: franklx2
 
 custom:
-  bucketOB: open-book-pages
-  bucketSPA: open-book-spa
+  bucketOB: ${file(./env.yml):bucketOB}
+  bucketSPA: ${file(./env.yml):bucketSPA}
   dynamoDB: open-book-pages-ddb
   s3Sync:
     - bucketName: ${self:custom.bucketSPA}
@@ -21,8 +21,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - "s3:PutObject"
-        - "s3:GetObject"
+        - "s3:*"
       Resource: "arn:aws:s3:::${self:custom.bucketOB}/*"
     - Effect: Allow
       Action:
@@ -44,6 +43,7 @@ functions:
       - http:
           path: create
           method: post
+          cors: true
   update:
     handler: handler.update
     environment:
@@ -52,6 +52,7 @@ functions:
       - http:
           path: update
           method: post
+          cors: true
   publish:
     handler: handler.publish
     environment:
@@ -61,6 +62,7 @@ functions:
       - http:
           path: publish
           method: post
+          cors: true
   get:
     handler: handler.get
     environment:
@@ -69,6 +71,7 @@ functions:
       - http:
           path: get
           method: post
+          cors: true
 resources:
  Resources:
     SPABucket:
@@ -78,6 +81,21 @@ resources:
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
+        # Set the CORS policy
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
     SPABucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:

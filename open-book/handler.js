@@ -115,6 +115,10 @@ function getResponse(callback)
 {
   callback(null, {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
     body: JSON.stringify(
       {
         message: 'Pages data from DynamoDB',
@@ -169,6 +173,10 @@ function getPagesData() {
 function publishResponse(callback) {
   callback(null, {
     statusCode: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },
     body: JSON.stringify(
       {
         message: 'Data from S3: ' + dataFromS3,
@@ -331,6 +339,10 @@ function uploadToS3(text, callback) {
       console.log("Successfully saved object to " + bucketName + "/" + keyName);
       callback(null, {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        },
         body: JSON.stringify(
           {
             message: 'text: ' + text,

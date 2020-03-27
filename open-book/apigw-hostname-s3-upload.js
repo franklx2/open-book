@@ -5,7 +5,8 @@ var bucketName = "open-book-spa";
 var keyName = "apiurl.env";
 var data = "";
 try {
-  data = fs.readFileSync('./apiurl', 'utf8')
+  var api = fs.readFileSync('./apiurl', 'utf8')
+  data = '{"url":"' + api.trim() + '"}';
   console.log("API Hostname: " + data)
 } catch (err) {
   console.error(err)

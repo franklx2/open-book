@@ -1,0 +1,37 @@
+.header {
+    background-image: linear-gradient(#fff, #b3b5a942);
+}
+
+.container {
+    height: 400px;
+    margin-bottom: 30px;
+}
+
+.main-content-wrapper {
+    height: 100%;
+}
+
+.prev-page-icon, .next-page-icon, .new-page-icon {
+    color: lightslategray;
+}
+
+.prev-page-icon:hover, .next-page-icon:hover, .new-page-icon:hover {
+    color: darkgray;
+    cursor: pointer;
+}
+
+.prev-page, .next-page {
+    font-size: 30px;
+}
+
+.new-page {
+    font-size: 50px;
+}
+
+.footer {
+    background-image: linear-gradient(#b3b5a942, #fff);
+}
+
+.new-page {
+    background-image: url("img/plus-solid.svg");
+}
