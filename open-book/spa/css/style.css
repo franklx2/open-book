@@ -4,11 +4,58 @@
 
 .container {
     height: 400px;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
-.main-content-wrapper {
+.new-page-wrapper, .main-content-wrapper, .current-page-wrapper, .current-page {
     height: 100%;
+}
+
+.current-page {
+    overflow-y: scroll;
+    border-left: #dadada solid 1px;
+    border-top: #dadada solid 1px;
+    border-right: #dadada solid 1px;
+}
+
+.new-page-wrapper {
+    overflow-y: scroll;
+}
+
+.new-page-textarea-wrapper {
+    margin-top: 10px;
+}
+
+.action-buttons-wrapper button {
+    width: 100%;
+}
+
+.action-buttons-wrapper {
+    margin-bottom: 20px;
+}
+
+.preview-page-wrapper-inner p {
+    overflow-y: scroll;
+    border: 1px solid #ced4da;
+    height: 300px;
+}
+
+.new-page-wrapper {
+    border: 1px solid #ced4da;
+}
+
+.page-number-wrapper {
+    border-left: #dadada solid 1px;
+    border-bottom: #dadada solid 1px;
+    border-right: #dadada solid 1px;
+}
+
+.page-number, .content {
+    text-align: center;
+}
+
+.content p {
+    text-align: left;
 }
 
 .prev-page-icon, .next-page-icon, .new-page-icon {
@@ -20,11 +67,15 @@
     cursor: pointer;
 }
 
+.publish-action.not-saved {
+    cursor: not-allowed !important;
+}
+
 .prev-page, .next-page {
     font-size: 30px;
 }
 
-.new-page {
+.new-page-open, .new-page-close {
     font-size: 50px;
 }
 
@@ -34,4 +85,28 @@
 
 .new-page {
     background-image: url("img/plus-solid.svg");
+}
+
+.preview-loading-spinner {
+    display: block;
+    margin: 0 auto;
+}
+
+.publish-action-wrapper:hover .tooltip-text{
+    visibility: visible;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: red;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -33px;
+    left: 82px;
 }

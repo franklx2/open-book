@@ -1,12 +1,15 @@
 # open-book
+I am fascinated with content management systems (CMS), since that was my first exposure to interacting with web applications in a professional capacity. For this exercise, I chose to implement a CMS using the serverless components specified in the prompt. 
+
 Welcome to Open Book, a simple web application with a serverless backend that allows users to contribute anonymously to an open book.
 Users will be able to create new pages and see it appended to the end of the book.
 
 INSTRUCTIONS:
 1. Clone the project into your local directory
-2. Run `cd open-book`
-2. Run `npm install` to setup your environment with the appropriate node packages
-3. Run `npm run sls` to initiate the deploy script
+2. Edit `env.yml` and enter the values to create the buckets under
+3. Run `cd open-book`
+4. Run `npm install` to setup your environment with the appropriate node packages
+5. Run `npm run sls` to initiate the deploy script
 
 This application consists of a simple frontend HTML/JS/CSS that makes requests to the API backend, hosted on a variety of serverless AWS components.
 

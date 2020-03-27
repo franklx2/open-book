@@ -345,7 +345,7 @@ function uploadToS3(text, callback) {
         },
         body: JSON.stringify(
           {
-            message: 'text: ' + text,
+            message: text,
             errors: errors,
             s3KeyName: keyName,
             status: "success"

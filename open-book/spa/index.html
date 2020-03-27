@@ -20,6 +20,38 @@
 </div>
 
 <div class="container">
+  <div class="row new-page-wrapper" style="display: none">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="row new-page-textarea-wrapper">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="new-page-text">New Page:</label>
+            <textarea class="form-control" rows="10" id="new-page-text"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row preview-page-wrapper-outer">
+        <div class="col-sm-12 preview-page-wrapper-inner">
+          <span>Save to preview page:</span>
+          <p class="preview-page-content"></p>
+        </div>
+      </div>
+      <div class="row action-buttons-wrapper">
+        <div class="col-sm-6">
+          <button type="button" class="btn btn-secondary save-action">Save</button>
+        </div>
+        <div class="col-sm-6">
+          <div class="publish-action-wrapper">
+            <span class="tooltip-text">Publish is available after saving</span>
+            <button type="button" class="btn btn-primary publish-action not-saved">Publish</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
   <div class="row main-content-wrapper">
     <div class="col-sm-1"></div>
     <div class="col-sm-1 prev-page-wrapper my-auto">
@@ -27,16 +59,20 @@
     </div>
     <div class="col-sm-8 my-auto current-page-wrapper">
         <div class="row current-page">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-10">
-                <div class="row content">
-                    <p>
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-                    </p>
-                </div>
-                <div class="row page-number"></div>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10 my-auto content">
+            <img class="mx-auto loading-spinner" src="img/loading.gif"/>
+            <p>
+            </p>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+        <div class="row page-number-wrapper">
+          <div class="col-sm-1 mx-auto">
+            <div class="page-number">
+              <span></span>
             </div>
-            <div class="col-sm-1"></div>
+          </div>
         </div>
     </div>
     <div class="col-sm-1 next-page-wrapper my-auto">
@@ -44,11 +80,15 @@
     </div>
     <div class="col-sm-1"></div>
   </div>
+  <div class="row new-page">
+    
+  </div>
 </div>
 
 <div class="jumbotron text-center footer" style="margin-bottom:0">
-  <div class="new-page-wrapper">
-      <span class="new-page"><i class="fa fa-plus new-page-icon"></i></span>
+  <div class="new-page-jumbotron-wrapper">
+    <span class="new-page-open"><i class="fa fa-plus new-page-icon"></i></span>
+    <span class="new-page-close" style="display: none"><i class="fa fa-minus new-page-icon"></i></span>
   </div>
 </div>
 
